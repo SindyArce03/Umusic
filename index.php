@@ -53,45 +53,37 @@
         </div>
     </section>
 
-    <!-- Content Section (Explorar) -->
     <section class="content-section">
         <div class="container">
             <h2 class="color">Explorar Contenidos</h2>
             <div class="row">
-                <div class="col-md-4">
-                    <div class="card">
-                        <img class="card-img-top" src="https://via.placeholder.com/300x200" alt="Canción o Video 1">
-                        <div class="card-body">
-                            <h5 class="card-title">Canción</h5>
-                            <p class="card-text">Descripción breve del contenido.</p>
-                            <a href="#" class="btn btn-primary">Reproducir</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img class="card-img-top" src="https://via.placeholder.com/300x200" alt="Canción o Video 2">
-                        <div class="card-body">
-                            <h5 class="card-title">Canción</h5>
-                            <p class="card-text">Descripción breve del contenido.</p>
-                            <a href="#" class="btn btn-primary">Reproducir</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card">
-                        <img class="card-img-top" src="https://via.placeholder.com/300x200" alt="Canción o Video 3">
-                        <div class="card-body">
-                            <h5 class="card-title">Canción</h5>
-                            <p class="card-text">Descripción breve del contenido.</p>
-                            <a href="#" class="btn btn-primary">Reproducir</a>
-                        </div>
-                    </div>
-                </div>
+                <?php
+                $dir = 'uploads/';
+                if (is_dir($dir)) {
+                    if ($dh = opendir($dir)) {
+                        while (($file = readdir($dh)) !== false) {
+                            if ($file != '.' && $file != '..') {
+                                echo "<div class='col-md-4'>
+                                        <div class='card'>
+                                            <div class='card-body'>
+                                                <h5 class='card-title'>" . htmlspecialchars($file) . "</h5>
+                                                <audio controls>
+                                                    <source src='" . $dir . $file . "' type='audio/mp3'>
+                                                    Tu navegador no soporta el reproductor de audio.
+                                                </audio>
+                                            </div>
+                                        </div>
+                                      </div>";
+                            }
+                        }
+                        closedir($dh);
+                    }
+                }
+                ?>
             </div>
         </div>
     </section>
-
+    
     <div class="button-container">
         <button class="btn btn-light mx-2">⏮ Anterior</button>
         <button class="btn btn-light mx-2">⏯ Reproducir</button>
